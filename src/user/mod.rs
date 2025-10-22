@@ -1,4 +1,4 @@
-pub mod user{
+pub mod user {
 
     use super::email::Email;
 
@@ -24,10 +24,7 @@ pub mod user{
             // need a &mut to be able to update at the reference of self
             self.email = new_email
         }
-
+    }
 }
-
-}
-
 
 pub mod email;

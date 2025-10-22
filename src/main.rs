@@ -1,8 +1,5 @@
 mod user;
-
-
 use std::io;
-
 
 use user::email::Email;
 use user::user::User_Struct;
@@ -10,8 +7,12 @@ use user::user::User_Struct;
 const NATES_EMAIL: &str = "natemiklas1@gmail.com";
 
 fn main() {
+    let mut user_vector: Vec<User_Struct> = Vec::new();
 
-    for _ in 0..1 {
+    // how to write a vector that would have values at initialization
+    // let v = vec![user1, user2, user3, etc...]
+
+    for _ in 0..2 {
         // run a loop precisely x times
 
         println!("Enter the email for a new user");
@@ -49,12 +50,15 @@ fn main() {
 
         dbg!(&new_user); // debug stmt
 
-        let updated_email = Email::Gmail(String::from("bademail.com")); // setting update_email to be an Email enum of type Gmail
+        //new_user.update_email(updated_email);
 
-        new_user.update_email(updated_email);
+        // push user struct onto the new vector
+        user_vector.push(new_user);
 
-        dbg!(&new_user); // debug stmt
-
-        // let pretty_string = new_user.pretty_print();
+        // iterate over the vector with a mutable referance to each item so we can update!
+        for i in &mut user_vector {
+            i.update_email(Email::Gmail(String::from("thisemailsucks.com")));
+            println!("{i:?}")
+        }
     }
 }
