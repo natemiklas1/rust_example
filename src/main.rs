@@ -1,8 +1,8 @@
-mod user;
+mod Account;
 use std::io;
 
-use user::email::Email;
-use user::user::User_Struct;
+use Account::email::email::Email;
+use Account::user::User_Struct;
 
 const NATES_EMAIL: &str = "natemiklas1@gmail.com";
 
@@ -23,12 +23,14 @@ fn main() {
             .read_line(&mut input)
             .expect("Could not read input!");
 
-        if input.trim() == NATES_EMAIL {
+        let trimmed_input = String::from(input.trim());
+
+        if trimmed_input == NATES_EMAIL {
             // comparing the strings I guess
             println!("That is Nate's email!")
         }
 
-        let email = Email::Yahoo(input); // creating a new enum with the Yahoo type
+        let email = Email::Yahoo(trimmed_input); // creating a new enum with the Yahoo type
 
         //take a reference to email, check which enum type it is
         match &email {
@@ -46,7 +48,7 @@ fn main() {
         //     println!("USER IS NOT USING GMAIL!")
         // }
 
-        let mut new_user = User_Struct::new(email, String::from("NEWUSER")); // this user needs to be mutable so we can update its email later
+        let new_user = User_Struct::new(email, String::from("NEWUSER")); // this user needs to be mutable so we can update its email later
 
         dbg!(&new_user); // debug stmt
 
@@ -57,7 +59,7 @@ fn main() {
 
         // iterate over the vector with a mutable referance to each item so we can update!
         for i in &mut user_vector {
-            i.update_email(Email::Gmail(String::from("thisemailsucks.com")));
+            i.add_other_email(Email::Gmail(String::from("thisemailsucks.com")));
             println!("{i:?}")
         }
     }

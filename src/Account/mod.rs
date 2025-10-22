@@ -1,10 +1,11 @@
 pub mod user {
 
-    use super::email::Email;
+    use super::email::email::Email;
 
     #[derive(Debug)]
     pub struct User_Struct {
-        pub email: Email, //using the Email enum here
+        pub email: Email,                //using the Email enum here
+        pub second_email: Option<Email>, // this can be None
         pub username: String,
         age: u32,
     }
@@ -17,12 +18,17 @@ pub mod user {
                 email, // these two fields are created using the field init shorthand, since the parameter name is the same as the field name
                 username,
                 age: 0, // making this default to 0 for no reason
+                second_email: Some(Email::Gmail(String::from(""))),
             }
         }
 
         pub fn update_email(&mut self, new_email: Email) {
             // need a &mut to be able to update at the reference of self
             self.email = new_email
+        }
+
+        pub fn add_other_email(&mut self, new_email: Email) {
+            self.second_email = Some(new_email)
         }
     }
 }
